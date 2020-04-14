@@ -1,7 +1,5 @@
 # Today I Learned
 
-----
-
 ## Javascript
 - Prototype
 - Class
