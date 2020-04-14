@@ -1,0 +1,115 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>private, protected 프로퍼티와 메서드</title>
+  </head>
+
+  <body>
+    <script>
+      'use strict';
+      /**
+       * 객체 지향 프로그래밍에서 프로퍼티와 메서드는 두 그룹으로 분류된다.
+       * 내부 인터페이스 - 동일한 클래스 내의 다른 메서드에선 접근할 수 있지만, 클래스 밖에서는 접근 할 수 없는 프로퍼티와 메소드
+       * 외부 인터페이스 - 클래스 밖에서도 접근 가능한 프로퍼티와 메소드
+       **/
+
+      // 프로퍼티 보호하기
+      class CoffeMachine {
+        waterAmount = 0;
+
+        constructor(power) {
+          this.power = power;
+          // alert(`power is ${power}`);
+        }
+      }
+      let coffeMachine = new CoffeMachine(100);
+
+      coffeMachine.waterAmount = 200;
+
+      // waterAmount를 protected로 바꿔보기
+      class CoffeMachine2 {
+        _waterAmount = 0;
+        set waterAmount(val) {
+          if (val < 0) throw new Error('음수 X');
+          this._waterAmount = val;
+        }
+        get waterAmount() {
+          return this._waterAmount;
+        }
+
+        constructor(power) {
+          this._power = power;
+        }
+      }
+
+      let coffe2 = new CoffeMachine2(100);
+      // coffe2.waterAmount = -10; // Error 발생
+
+      // 읽기 전용 프로퍼티
+      /*
+    읽기 전용 프로퍼티를 만들기 위해서는 setter를 만들지 않고 getter만 만들어야한다.
+    */
+      class CoffeMachine3 {
+        constructor(power) {
+          this._power = power;
+        }
+
+        get power() {
+          return this._power;
+        }
+      }
+      let coffe3 = new CoffeMachine3(100);
+      // coffe3.power = 25; // Uncaught TypeError: Cannot set property power of #<CoffeMachine3> which has only a getter
+      // 엄격모드가 아니면 에러가 발생하지는 않지만 값이 할당되지 않고 의도하는 동작이 이루어지지 않는다.
+
+      // private 필드 (최근에 추가됌)
+      class newCoffeMachine {
+        #waterLimit = 200;
+
+        // #checkWater(value) {
+        //   if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+        //   if (value > this.#waterLimit)
+        //     throw new Error("물이 용량을 초과합니다.");
+        // }
+      }
+
+      let newCoffe = new newCoffeMachine();
+      // newCoffe.#waterLimit = 1000; // Uncaught SyntaxError: Private field '#waterLimit' must be declared in an enclosing class
+      //   newCoffe.#checkWater();
+
+      /*
+      private 필드는 public 필드와 상충하지 않는다.
+      #waterAmount와 waterAmount를 동시에 가질수 있다.
+    */
+
+      class CoffeMachine4 {
+        #waterAmount = 0;
+
+        get waterAmount() {
+          return this.#waterAmount;
+        }
+        set waterAmount(val) {
+          if (val < 0) throw new Erorr('음수 X');
+          this.#waterAmount = val;
+        }
+      }
+
+      let test = new CoffeMachine4();
+      test.waterAmount = 100;
+      // console.log(`#waterAmount: ${test.#waterAmount}`); // (index):100 Uncaught SyntaxError: Private field '#waterAmount' must be declared in an enclosing class
+
+      // private 필드는 this[name]으로 사용 불가능
+      /*
+       * 보통은 this[name] 으로 접근이 가능하지만 private 필드는 불가능하다.
+       */
+      class Test {
+        constructor() {
+          let name = 'name';
+          alert(`Hello ${this[name]}`);
+        }
+      }
+      // new Test(); // alert("Hello Undefined")
+    </script>
+  </body>
+</html>
