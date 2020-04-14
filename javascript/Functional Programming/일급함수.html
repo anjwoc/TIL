@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const a = 10;
+      const add10 = a => a + 10;
+      const r = add10(a);
+      console.log(r);
+    </script>
+
+    <!-- 
+  
+    함수가 일급이라는 의미는 함수의 결과 값으로 다시 함수에 사용될 수 있다는 의미이다.
+  
+   -->
+    <script>
+      console.log('asdf');
+      const add5 = a => a + 5;
+      console.log(add5);
+      console.log(add5(5));
+
+      const f1 = () => () => 1;
+      console.log(f1); // () => () => 1;
+
+      // f1을 실행한 결과를 전달한게 f2로 들어감
+      const f2 = f1();
+      console.log(f2); // () => 1;
+      console.log(f2()); // 1
+    </script>
+  </body>
+</html>
