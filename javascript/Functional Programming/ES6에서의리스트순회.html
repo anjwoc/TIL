@@ -1,0 +1,84 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>기존과 달라진 ES6에서의 리스트 순회</title>
+  </head>
+  <body>
+    기존과 달라진 es6에서의 리스트 순회 for i++ for of
+    <script>
+      const list = [1, 2, 3];
+      for (var i = 0; i < list.length; i++) {
+        console.log(list[i]);
+      }
+
+      for (const a of list) {
+        console.log(a);
+      }
+      const str = 'abc';
+      for (const b of str) {
+        console.log(b);
+      }
+    </script>
+
+    <!-- 
+      Array을 통해 알아보기
+     -->
+    <script>
+      const arr = [1, 2, 3];
+      // arr[Symbol.iterator] = null;
+      // arr[Symbol.iterator]에 null을 넣게되면 순회를 할 시 에러가 발생한다.
+      console.log(arr[Symbol.iterator]);
+      // arr[Symbol.iterator]는 Array iterator을 리턴하는 함수 자체가 리턴되는거고
+      console.log(arr[Symbol.iterator]());
+      // arr[Symbol.iterator]()는 Array iterator 객체를 리턴한다.
+      let iterator = arr[Symbol.iterator]();
+      console.log(iterator.next());
+
+      // 아래 map과 set도 마찬가지
+      for (const a of arr) {
+        console.log(a);
+      }
+    </script>
+    <!-- 
+      iterable / iterable protocol
+      - iterable: iterator를 리턴하는 [Symbol.iterator]()를 가진 값
+      - iterator: { value, done } 객체를 리턴하는 next()를 가진 값
+      - iterable / iterator protocol: iterable을 for...of, 전개 연산자 등과 함께 동작하도록 한 규약
+     -->
+    <!-- 
+      Set을 통해 알아보기
+      Symbol.iterator
+      심볼은 어떤 객체의 키로 사용될 수 있다.
+      arr[Symbol.iterator]
+     -->
+    <script>
+      const set = new Set([1, 2, 3]);
+      // set도 마찬가지로 배열처럼 인덱스로 접근은 안되지만 접근 가능한 이유는
+      // iterable한 객체이기 때문에 for of문으로 접근할 수 있다.
+      let iter = set[Symbol.iterator]();
+      //
+      iter.next();
+      for (const a of iter) {
+        console.log(a);
+      }
+
+      for (const a of set) {
+        console.log(a);
+      }
+    </script>
+    <!-- 
+      Map을 통해 알아보기
+     -->
+    <script>
+      const map = new Map([
+        ['a', 1],
+        ['b', 2],
+        ['c', 3],
+      ]);
+      for (const a of map) {
+        console.log(a);
+      }
+    </script>
+  </body>
+</html>
