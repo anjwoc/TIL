@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>고차함수</title>
+  </head>
+  <body>
+    <!-- 
+    일급함수
+    - 함수가 값으로 다뤄질 수 있다.
+
+   -->
+    <script>
+      const apply1 = f => f(1);
+      // (a => a+2)(1)과 같은 형태
+      // apply1은 add2라는 함수를 받아서 내부에서 add2(1)을 실행해주고 있다.
+      const add2 = a => a + 2;
+      console.log(apply1(add2));
+
+      const times = (f, n) => {
+        let i = -1;
+        while (++i < n) f(i);
+      };
+      times(console.log, 3);
+      times(a => console.log(a + 10), 3);
+    </script>
+    <!-- 
+      함수를 만들어 리턴하는 함수 ( 클로저를 만들어 리턴하는 함수 )
+      - addMaker
+
+     -->
+    <script>
+      const addMaker = a => b => a + b;
+      // addMaker는 함수이자 a를 기억하는 클로저이다.
+      // 클로저는 addMaker가 만들어질 때의 환경인 a와 함수 자체의 객체를 함께 통칭해서 말하는 용어다.
+      const add10 = addMaker(10);
+      console.log(add10(5));
+      console.log(add10(10));
+    </script>
+  </body>
+</html>
