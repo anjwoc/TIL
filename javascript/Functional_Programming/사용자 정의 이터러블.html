@@ -60,5 +60,14 @@
       const iter3 = all[Symbol.iterator]();
       console.log(iter3.next()); // html 반환
     </script>
+    <!-- 
+      전개 연산자
+     -->
+    <script>
+      console.clear();
+      const a = [1, 2];
+      // a[Symbol.iterator] = null;
+      console.log([...a, ...arr]);
+    </script>
   </body>
 </html>
