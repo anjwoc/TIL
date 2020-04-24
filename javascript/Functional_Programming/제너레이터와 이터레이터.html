@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제네레이터와 이터레이터</title>
+  </head>
+  <body>
+    <!-- 
+    제너레이터: 이터레이터이자 이터러블을 생성하는 함수
+    자바스크립트에서는 어떠한 상태나 어떠한 값이든 사실상 순회할 수 있게 만들 수 있다.
+   -->
+    <script>
+      function* gen() {
+        yield 1;
+        yield 2;
+        if (false) yield 5;
+        yield 3;
+        return 100; // return값은 마지막 done을 할 때 나오는 값
+      }
+      let iter = gen();
+      console.log(iter[Symbol.iterator]() == iter);
+      console.log(iter.next());
+      console.log(iter.next());
+      console.log(iter.next());
+      console.log(iter.next());
+
+      // 제너레이터의 실행 결과가 이터러블이자 이터레이터다.
+
+      for (const a of gen()) {
+        console.log(a);
+      }
+      console.clear();
+    </script>
+
+    <script>
+      // 아래 infinity 제너레이터는 무한루프를 돌며 i++을 통해 값을 증가시켜나가며 계속 생산하지만
+      // 하지만 그렇다고 사용자가 값을 평가하는 시점까지만 사용하기 때문에 멈추거나 할 일은 없다.
+
+      function* infinity(i = 0) {
+        while (true) yield i++;
+      }
+
+      // function* odds(limit) {
+      //   for (i = 0; i < limit; i++) {
+      //     if (i % 2) yield i;
+      //   }
+      // }
+      // 위의 odds를 변행해보기
+      function* odds(l) {
+        // 이런식으로 구현해도 정상 동작한다.
+        for (const a of limit(l, infinity(1))) {
+          if (a % 2) yield a;
+        }
+      }
+
+      function* limit(limit, iter) {
+        for (const a of iter) {
+          yield a;
+          if (a == limit) return;
+        }
+      }
+
+      for (const a of odds(40)) console.log(a);
+      console.clear();
+    </script>
+
+    <!-- 
+      for of, 전개 연산자, 구조 분해, 나머지 연산자
+     -->
+  </body>
+</html>
