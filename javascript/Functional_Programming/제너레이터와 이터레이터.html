@@ -67,5 +67,12 @@
     <!-- 
       for of, 전개 연산자, 구조 분해, 나머지 연산자
      -->
+    <script>
+      console.log(...odds(10));
+      console.log([...odds(10), ...odds(20)]);
+      const [head, ...tail] = odds(30);
+      console.log(head);
+      console.log(tail);
+    </script>
   </body>
 </html>
