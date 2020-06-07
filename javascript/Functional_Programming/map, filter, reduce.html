@@ -1,0 +1,84 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>map, filter, reduce</title>
+  </head>
+  <body>
+    <script>
+      const products = [
+        {name: '반팔티', price: 15000},
+        {name: '긴팔티', price: 20000},
+        {name: '핸드폰케이스', price: 15000},
+        {name: '후드티', price: 30000},
+        {name: '바지', price: 22000},
+      ];
+    </script>
+    <script>
+      let names = [];
+      for (const p of products) {
+        names.push(p.name);
+      }
+
+      console.log(names);
+
+      const map = (f, iter) => {
+        // map이라는 함수에 보조 함수를 통해서
+        // 1:1로 매핑하는 어떠한 값을 수집하는 부분을 추상화한다.
+        let res = [];
+        for (const p of iter) {
+          res.push(f(p));
+        }
+        return res;
+      };
+      console.log(map(p => p.name, products));
+      console.log(map(p => p.price, products));
+    </script>
+
+    <!-- iterable protocol을 따른 map의 다형성 -->
+
+    <script>
+      console.log([1, 2, 3].map(a => a + 1));
+
+      // map함수는 iterable 프로토콜을 따르는 모든 함수를 사용 가능하다.
+      // console.log(document.querySelectorAll('*').map(el => el.nodeName));
+      console.log(map(el => el.nodeName, document.querySelectorAll('*')));
+      // const it = document.querySelectorAll('*')[Symbol.iterator]();
+      // console.log(it);
+      // console.log(it.next());
+
+      // 이미 만들어저 있는 iterable인 모든 값도 사용가능하지만
+      // gen 제너레이터와 같은 결과에 대한 것에도 map이 적용 가능하다.
+      // 브라우저에서 사용되는 함수들이 대부분 ecma 스펙 상에 iterable 프로토콜을 따르기 때문에
+      // 다른 많은 헬퍼 함수들과의 조합성이 좋아진다.
+      function* gen() {
+        yield 2;
+        yield 3;
+        yield 4;
+      }
+      console.log(map(a => a * a, gen()));
+    </script>
+
+    <!-- iterable protocol을 따른 map의 다형성2 -->
+    <script>
+      let m = new Map();
+      m.set('a', 10);
+      m.set('b', 20);
+      const it = m[Symbol.iterator]();
+      console.log(it.next());
+
+      // 새로운 map 객체를 만들어낼 수 있다.
+      console.log(map(([key, val]) => [key, val * 2], m));
+    </script>
+
+    <!-- filter -->
+    <script>
+      let under20000 = [];
+      for (const p of products) {
+        if (p.price < 20000) under20000.push(p);
+      }
+
+      console.log(...under20000);
+    </script>
+  </body>
+</html>
