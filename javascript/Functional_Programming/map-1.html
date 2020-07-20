@@ -1,0 +1,30 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>map</title>
+  </head>
+  <body>
+    <!-- map -->
+    <script>
+      const products = [
+        { name: 'red', price: 15000 },
+        { name: 'blue', price: 2000 },
+        { name: 'green', price: 30000 },
+        { name: 'black', price: 12000 },
+      ];
+      let names = [];
+      for (const a of products) names.push(a.name);
+      let prices = [];
+      for (const a of products) prices.push(a.price);
+
+      let test1 = [];
+      products.map((v) => test1.push(v.name));
+      console.log(test1);
+
+      let test2 = [];
+      products.map((v) => test2.push(v.price));
+      console.log(test2);
+    </script>
+  </body>
+</html>
