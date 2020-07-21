@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "live-server": "^1.2.1"
+    "csv-parse": "^4.11.1",
+    "csv-stringify": "^5.5.0",
+    "live-server": "^1.2.1",
+    "puppeteer": "^5.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./javascript/puppeteer/index.js"
   },
   "repository": {
     "type": "git",
