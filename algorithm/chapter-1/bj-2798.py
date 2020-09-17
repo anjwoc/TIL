@@ -10,6 +10,6 @@ for i in range(0, length):
                 continue
             val = card[i] + card[j] + card[k]
             if val <= M:
-                ans = max(val, ans)         
+                ans = max(val, ans)
 
 print(ans)
