@@ -6,7 +6,7 @@ ans = 0
 
 
 def solve(n, x, y):
-    global ans, dx, dy
+    global ans
     if n == 2:
         if x == r and y == c:
             print(ans)
