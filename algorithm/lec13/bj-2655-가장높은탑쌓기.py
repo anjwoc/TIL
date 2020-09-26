@@ -7,7 +7,6 @@ for i in range(1, n+1):
     area, height, weight = map(int, input().split())
     arr.append([i, (area, height, weight)])
 
-print()
 result = [arr[0]]
 for i in range(2, (n+1)):
     prevA, prevH, prevW = arr[i-1][1]
